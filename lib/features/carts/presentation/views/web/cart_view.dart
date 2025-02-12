@@ -66,46 +66,48 @@ class _CartViewState extends State<CartView> {
                       ),
                       // color: const Color(0xff178F49) ,
                       borderRadius: BorderRadius.circular(5.0)),
-                    child: DropdownSearch<DropListItem>(
-                      //mode of dropdown
-                      mode: Mode.MENU,
-                      //to show search box
-                      showSearchBox: true,
-                      isFilteredOnline: true,
-                      onFind: (String? value) => customerController.onSearch(value!),
-                      showSelectedItems: true,
-                      dropDownButton: const Icon(
-                        Icons.account_circle_outlined,
-                        color: Color(0xffF79624),
-                        size: 30,
-                      ),
-                      //list of dropdown items
-                      onChanged: (DropListItem? customer) {
-                        if (customer != null) {
-                          if (customer.isFooter())
-                            customerController.showDialogAddCustomer();
-                          else{
-                            cartsController.setSelectedCustomer(customer);
-                          }
+                  child: DropdownSearch<DropListItem>(
+                    //mode of dropdown
+                    //mode: Mode.MENU,
+                    //to show search box
+                    //showSearchBox: true,
+                    //isFilteredOnline: true,
+                    // onFind: (String? value) =>
+                    //     customerController.onSearch(value!),
+                    // showSelectedItems: true,
+                    // dropDownButton: const Icon(
+                    //   Icons.account_circle_outlined,
+                    //   color: Color(0xffF79624),
+                    //   size: 30,
+                    // ),
+                    //list of dropdown items
+                    onChanged: (DropListItem? customer) {
+                      if (customer != null) {
+                        if (customer.isFooter())
+                          customerController.showDialogAddCustomer();
+                        else {
+                          cartsController.setSelectedCustomer(customer);
                         }
-                      },
-                      //show selected item
-                      selectedItem: cartsController.listCarts[cartsController.selectedCart.value].customer,
-                      hint: "... اختر العميل",
-                      dropdownSearchDecoration: const InputDecoration(
-                          border: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.zero),
-                      compareFn: (item, selectedItem) {
-                        return item != null &&
-                            selectedItem != null &&
-                            (item == selectedItem);
-                      },
-                      popupItemBuilder: _customPopupItemBuilder,
-                      dropdownBuilder: _customDropDown,
-                    ),
+                      }
+                    },
+                    //show selected item
+                    selectedItem: cartsController
+                        .listCarts[cartsController.selectedCart.value].customer,
+                    // hint: "... اختر العميل",
+                    // dropdownSearchDecoration: const InputDecoration(
+                    //     border: InputBorder.none,
+                    //     disabledBorder: InputBorder.none,
+                    //     enabledBorder: InputBorder.none,
+                    //     contentPadding: EdgeInsets.zero),
+                    compareFn: (item, selectedItem) {
+                      return item != null &&
+                          selectedItem != null &&
+                          (item == selectedItem);
+                    },
+                    // popupItemBuilder: _customPopupItemBuilder,
+                    dropdownBuilder: _customDropDown,
                   ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -199,8 +201,8 @@ class _CartViewState extends State<CartView> {
                       cartsController.pay();
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff178f49), // background
-                      onPrimary: const Color(0xffF79624),
+                      backgroundColor: const Color(0xff178f49), // background
+                      foregroundColor: const Color(0xffF79624),
                       // foreground
                     ),
                     child: cartsController.isPayLoading.value
@@ -272,23 +274,24 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Widget _customPopupItemBuilder(BuildContext context, DropListItem? item, bool isSelected) {
+  Widget _customPopupItemBuilder(
+      BuildContext context, DropListItem? item, bool isSelected) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
       child: item!.isFooter()
           ? Text(
-        '...إضافة جديد',
-        style: GoogleFonts.cairo(
-          textStyle: const TextStyle(
-              color: const Color(0xff178F49),
-              fontSize: 15,
-              fontWeight: FontWeight.bold),
-        ),
-      )
+              '...إضافة جديد',
+              style: GoogleFonts.cairo(
+                textStyle: const TextStyle(
+                    color: const Color(0xff178F49),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+              ),
+            )
           : ListTile(
-        selected: isSelected,
-        title: Text(item.getCustomer()!.mobile_no),
-      ),
+              selected: isSelected,
+              title: Text(item.getCustomer()!.mobile_no),
+            ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'navigator_factory.dart';
 class AppNavigatorFactory extends NavigatorFactory {
   @override
   void offAndToNamed(String routeName) {
+    print(routeName);
     Get.offAndToNamed(routeName);
   }
 

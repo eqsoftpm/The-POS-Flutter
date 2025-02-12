@@ -18,93 +18,105 @@ class CartItemProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
-      child: ListTile(
-          onTap: () async {
-            await showModalSideSheet(
-                context: context,
-                ignoreAppBar: false,
-                barrierDismissible: true,
-                withCloseControll: false,
-                width: MediaQuery.of(context).size.width *
-                    (GetPlatform.isMobile ? 0.80 : 0.25),
-                body: SafeArea(
-                  child: EditCartWidget(
-                    item: item,
-                  ),
-                ));
-
-            // if (GetPlatform.isMobile) {
-            //   await Get.bottomSheet(
-            //       EditCartWidget(
-            //         item: item,
-            //       ),
-            //       isScrollControlled: true,
-            //       backgroundColor: Colors.white);
-            // } else {
-            //   await Get.dialog(
-            //     Material(
-            //       child: EditCartWidget(
-            //         item: item,
-            //       ),
-            //     ),
-            //   );
-            // }
-            refresh();
-          },
-          leading: Text(
-            "X ${item.quantity}",
-            style: GoogleFonts.cairo(
-              textStyle: TextStyle(
-                  color: Color(0xff000000),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
+        startActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          extentRatio: 0.25,
+          children: [
+            SlidableAction(
+              label: 'Archive',
+              backgroundColor: Colors.blue,
+              icon: Icons.archive,
+              onPressed: (context) {},
             ),
-          ),
-          trailing: RichText(
-              text: TextSpan(
-            children: [
-              TextSpan(
-                text: "${item.quantity * item.getPrice!}",
-                style: GoogleFonts.cairo(
-                  textStyle: TextStyle(
-                      color: Color(0xff178F49),
-                      fontSize: 27,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              TextSpan(
-                text: "ريال",
-                style: GoogleFonts.cairo(
-                  textStyle: TextStyle(
-                      color: Color(0xff000000),
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ],
-          )),
-          title: Text(
-            "${item.product.name}",
-            style: GoogleFonts.cairo(
-              textStyle: TextStyle(
-                  color: Color(0xff000000),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
-            ),
-          )),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'حذف',
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () {
-            cartsController.deleteItem(item);
-            refresh();
-          },
+          ],
         ),
-      ],
-    );
+        child: ListTile(
+            onTap: () async {
+              await showModalSideSheet(
+                  context: context,
+                  ignoreAppBar: false,
+                  barrierDismissible: true,
+                  withCloseControll: false,
+                  width: MediaQuery.of(context).size.width *
+                      (GetPlatform.isMobile ? 0.80 : 0.25),
+                  body: SafeArea(
+                    child: EditCartWidget(
+                      item: item,
+                    ),
+                  ));
+
+              // if (GetPlatform.isMobile) {
+              //   await Get.bottomSheet(
+              //       EditCartWidget(
+              //         item: item,
+              //       ),
+              //       isScrollControlled: true,
+              //       backgroundColor: Colors.white);
+              // } else {
+              //   await Get.dialog(
+              //     Material(
+              //       child: EditCartWidget(
+              //         item: item,
+              //       ),
+              //     ),
+              //   );
+              // }
+              refresh();
+            },
+            leading: Text(
+              "X ${item.quantity}",
+              style: GoogleFonts.cairo(
+                textStyle: TextStyle(
+                    color: Color(0xff000000),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            trailing: RichText(
+                text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "${item.quantity * item.getPrice!}",
+                  style: GoogleFonts.cairo(
+                    textStyle: TextStyle(
+                        color: Color(0xff178F49),
+                        fontSize: 27,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                TextSpan(
+                  text: "ريال",
+                  style: GoogleFonts.cairo(
+                    textStyle: TextStyle(
+                        color: Color(0xff000000),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ],
+            )),
+            title: Text(
+              "${item.product.name}",
+              style: GoogleFonts.cairo(
+                textStyle: TextStyle(
+                    color: Color(0xff000000),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+              ),
+            )),
+        endActionPane: ActionPane(
+          motion: DrawerMotion(),
+          children: <Widget>[
+            SlidableAction(
+              label: 'حذف',
+              backgroundColor: Colors.red,
+              icon: Icons.delete,
+              onPressed: (context) {
+                cartsController.deleteItem(item);
+                refresh();
+              },
+            ),
+          ],
+        ));
   }
 }

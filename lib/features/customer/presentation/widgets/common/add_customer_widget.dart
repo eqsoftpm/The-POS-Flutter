@@ -4,18 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddCustomerWidget extends StatelessWidget {
   const AddCustomerWidget(
-      {Key? key, required this.onAddCustomer,
-        required this.validateInput,
-        required this.errorValidateMessage,
-        required this.isCustomerLoading
-
-      })
+      {Key? key,
+      required this.onAddCustomer,
+      required this.validateInput,
+      required this.errorValidateMessage,
+      required this.isCustomerLoading})
       : super(key: key);
   final Function(String name, String ID, String mobile_no, String email)
       onAddCustomer;
   final Function(String text, String type) validateInput;
-  final errorValidateMessage  ;
-  final isCustomerLoading ;
+  final errorValidateMessage;
+  final isCustomerLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,6 @@ class AddCustomerWidget extends StatelessWidget {
         TextEditingController();
     final TextEditingController textMobileNuEditingController =
         TextEditingController();
-
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -99,8 +97,8 @@ class AddCustomerWidget extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   //todo
-                  errorValidateMessage.value = validateInput(value,
-                      "أدخل رقم الجوال");
+                  errorValidateMessage.value =
+                      validateInput(value, "أدخل رقم الجوال");
                 },
               )),
           SizedBox(
@@ -142,8 +140,7 @@ class AddCustomerWidget extends StatelessWidget {
                                     textEmailEditingController.value.text)
                                 : errorValidateMessage.value = validateInput(
                                     textMobileNuEditingController.value.text,
-                                "أدخل رقم الجوال"),
-
+                                    "أدخل رقم الجوال"),
                       )))),
         ],
       ),
@@ -154,7 +151,7 @@ class AddCustomerWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        primary: errorValidateMessage.value.isEmpty
+        backgroundColor: errorValidateMessage.value.isEmpty
             ? const Color(0xff178f49)
             : const Color(0xff178f49),
         shadowColor: Colors.transparent,

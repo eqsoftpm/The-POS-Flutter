@@ -5,15 +5,14 @@ import 'package:thepos/features/customer/presentation/widgets/model/item_dropdow
 part 'customer.g.dart';
 
 @HiveType(typeId: 5)
+// ignore: must_be_immutable
 class Customer extends Equatable implements DropListItem {
-
   Customer({
     this.name,
     required this.mobile_no,
     this.email,
     this.ID,
   });
-
 
   @HiveField(0)
   String? name;
@@ -41,21 +40,17 @@ class Customer extends Equatable implements DropListItem {
   @override
   List<Object?> get props => [name, mobile_no, email, ID];
 
-
   @override
   bool isFooter() {
     return false;
   }
 
-  @override
   bool isHeader() {
-    return false ;
+    return false;
   }
 
   @override
- Customer? getCustomer() {
-    return Customer(name :name ,mobile_no: mobile_no ,email: email,ID: ID);
+  Customer? getCustomer() {
+    return Customer(name: name, mobile_no: mobile_no, email: email, ID: ID);
   }
-
-
 }

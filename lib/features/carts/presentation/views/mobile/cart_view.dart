@@ -53,17 +53,17 @@ class CartView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.0)),
             child: DropdownSearch<DropListItem>(
               //mode of dropdown
-              mode: Mode.MENU,
+              //mode: Mode.form,
               //to show search box
-              showSearchBox: true,
-              isFilteredOnline: true,
-              onFind: (String? value) => customerController.onSearch(value!),
-              showSelectedItems: true,
-              dropDownButton: const Icon(
-                Icons.account_circle_outlined,
-                color: Color(0xffF79624),
-                size: 30,
-              ),
+              // showSearchBox: true,
+              // isFilteredOnline: true,
+              // onFind: (String? value) => customerController.onSearch(value!),
+              // showSelectedItems: true,
+              // dropDownButton: const Icon(
+              //   Icons.account_circle_outlined,
+              //   color: Color(0xffF79624),
+              //   size: 30,
+              // ),
               //list of dropdown items
               onChanged: (DropListItem? customer) {
                 if (customer != null) {
@@ -74,20 +74,21 @@ class CartView extends StatelessWidget {
                 }
               },
               //show selected item
-              selectedItem: cartsController.listCarts[cartsController.selectedCart.value].customer,
+              selectedItem: cartsController
+                  .listCarts[cartsController.selectedCart.value].customer,
 
-              hint: "... اختر العميل",
-              dropdownSearchDecoration: const InputDecoration(
-                  border: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.zero),
+              // hint: "... اختر العميل",
+              // dropdownSearchDecoration: const InputDecoration(
+              //     border: InputBorder.none,
+              //     disabledBorder: InputBorder.none,
+              //     enabledBorder: InputBorder.none,
+              //     contentPadding: EdgeInsets.zero),
               compareFn: (item, selectedItem) {
                 return item != null &&
                     selectedItem != null &&
                     (item == selectedItem);
               },
-              popupItemBuilder: _customPopupItemBuilder,
+              // popupItemBuilder: _customPopupItemBuilder,
               dropdownBuilder: _customDropDown,
             ),
           ),
@@ -153,7 +154,7 @@ class CartView extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        primary: Colors.transparent,
+        backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
       child: SvgPicture.asset(assets),
@@ -180,7 +181,8 @@ class CartView extends StatelessWidget {
     );
   }
 
-  Widget _customPopupItemBuilder(BuildContext context, DropListItem? item, bool isSelected) {
+  Widget _customPopupItemBuilder(
+      BuildContext context, DropListItem? item, bool isSelected) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
       child: item!.isFooter()

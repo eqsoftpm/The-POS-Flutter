@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
+//import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,21 +27,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      enableLog: true,
       getPages: routes,
       initialRoute: initial,
       locale: LocalizationService.locale,
       navigatorKey: navigatorKey,
       translations: LocalizationService(),
-      builder: (context, widget) => ResponsiveWrapper.builder(
-        widget,
-        maxWidth: 1200,
-        minWidth: 480,
-        defaultScale: true,
+      builder: (BuildContext context, Widget? widget) =>
+          ResponsiveBreakpoints.builder(
+        child: widget!,
+        // maxWidth: 1200,
+        // minWidth: 480,
+        // defaultScale: true,
         breakpoints: [
-          const ResponsiveBreakpoint.resize(480, name: MOBILE),
-          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+          const Breakpoint(start: 0, end: 480, name: MOBILE),
+          const Breakpoint(start: 481, end: 800, name: TABLET),
+          const Breakpoint(start: 8000, end: double.infinity, name: DESKTOP),
         ],
       ),
       theme: ThemeData(

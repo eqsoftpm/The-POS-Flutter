@@ -22,10 +22,12 @@ class ApiLoginService extends LoginService {
           'password': password,
         }),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=utf-8'
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization': 'Bearer 123'
         },
       );
       if (response.statusCode == 200) {
+        print(response.body);
         return _tryParse(response.body);
       } else if (response.statusCode == 401) {
         return Future<LoginResult>.error(LoginErrors.invalidCredential);
